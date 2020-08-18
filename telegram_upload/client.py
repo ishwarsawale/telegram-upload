@@ -47,7 +47,9 @@ def truncate(text, max_length):
 class Client(TelegramClient):
     def __init__(self, config_file, **kwargs):
         config = json.load(open(config_file))
-        super().__init__(config.get('session', 'telegram-upload'), config['api_id'], config['api_hash'], **kwargs)
+        # get session from config
+        session_file = os.path.expanduser('~/.config/telegram-upload.session')
+        super().__init__(config.get('session', session_file), config['api_id'], config['api_hash'], **kwargs)
 
     def start(
             self,
